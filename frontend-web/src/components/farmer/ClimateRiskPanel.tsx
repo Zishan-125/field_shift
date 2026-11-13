@@ -467,7 +467,8 @@ function Projections({ data, language }: { data: ClimateShiftResponse; language:
       <p className="text-sm font-black text-slate-900">{t.projectionsTitle}</p>
       <p className="mt-1 text-xs leading-5 text-slate-500">{fill(t.projectionsIntro, { n: number(models.size, language) })}</p>
       <div className="mt-2 overflow-x-auto">
-        <table className="w-full min-w-[480px] text-left text-xs text-slate-700">
+        
+    <table className="w-full min-w-[480px] text-left text-xs text-slate-700">
           <thead className="text-slate-500">
             <tr>
               <th className="py-1 pr-2" />
@@ -478,7 +479,7 @@ function Projections({ data, language }: { data: ClimateShiftResponse; language:
           </thead>
           <tbody>
             {rows.map((row) => {
-              const baseline = data.projections.find((p) => p.indicator === row.id)?.baseline_observed;
+              const baseline = data?.projections?.find((p: any) => p.indicator === row.id)?.baseline_observed;
               return (
                 <tr key={row.id} className="border-t border-slate-100">
                   <td className="py-1 pr-2 font-bold">{row.label}</td>
