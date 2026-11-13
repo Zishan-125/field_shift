@@ -1,0 +1,147 @@
+import axios from "axios";
+
+import type { FieldResponse } from "../types/field";
+import type { EnvironmentResponse } from "../types/environment";
+import type { SoilResponse } from "../types/soil";
+import type { FarmerPriorities } from "../types/farmer";
+import type { RecommendationResponse } from "../types/recommendation";
+import type {
+  PatternPriorities,
+  PatternRecommendationResponse,
+} from "../types/pattern";
+import type { ClimateShiftResponse } from "../types/climate";
+import type { DemoFieldsResponse } from "../types/demoFields";
+import type {
+  CropResponse,
+} from "../types/crop";
+
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  "http://127.0.0.1:8001";
+
+export const api = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+  timeout: 60000,
+});
+
+export async function getHealth() {
+  const response = await api.get(
+    "/api/offline/health",
+  );
+
+  return response.data;
+}
+
+export async function getField(
+  fieldId: string,
+): Promise<FieldResponse> {
+  const response =
+    await api.get<FieldResponse>(
+      `/api/offline/fields/${fieldId}`,
+    );
+
+  return response.data;
+}
+
+export async function getEnvironment(
+  fieldId: string,
+): Promise<EnvironmentResponse> {
+  const response =
+    await api.get<EnvironmentResponse>(
+      `/api/offline/fields/${fieldId}/environment`,
+    );
+
+  return response.data;
+}
+
+export async function getSoil(
+  fieldId: string,
+): Promise<SoilResponse> {
+  const response =
+    await api.get<SoilResponse>(
+      `/api/offline/fields/${fieldId}/soil`,
+    );
+
+  return response.data;
+}
+
+export async function getCrops(): Promise<CropResponse> {
+  const response =
+    await api.get<CropResponse>(
+      "/api/offline/crops",
+    );
+
+  return response.data;
+}
+
+export async function getRotations(
+  fieldId: string,
+) {
+  const response = await api.get(
+    `/api/offline/fields/${fieldId}/rotations`,
+  );
+
+  return response.data;
+}
+
+export async function getEvaluatedRotations(
+  fieldId: string,
+) {
+  const response = await api.get(
+    `/api/offline/fields/${fieldId}/rotations/evaluated`,
+  );
+
+  return response.data;
+}
+
+export async function getClimateShift(
+  upazila?: string,
+): Promise<ClimateShiftResponse> {
+  const response =
+    await api.get<ClimateShiftResponse>(
+      "/api/offline/climate-shift",
+      { params: upazila ? { upazila } : {} },
+    );
+
+  return response.data;
+}
+
+export async function getDemoFields(): Promise<DemoFieldsResponse> {
+  const response = await api.get<DemoFieldsResponse>("/api/offline/demo-fields");
+
+  return response.data;
+}
+
+export async function getPatternRecommendations(
+  fieldId: string,
+  priorities: PatternPriorities,
+  currentPatternId: string,
+): Promise<PatternRecommendationResponse> {
+  const response =
+    await api.post<PatternRecommendationResponse>(
+      `/api/offline/fields/${fieldId}/pattern-recommendations`,
+      {
+        ...priorities,
+        current_pattern_id: currentPatternId,
+      },
+    );
+
+  return response.data;
+}
+
+/** @deprecated crop permutations without a season check; use getPatternRecommendations */
+export async function getRecommendations(
+  fieldId: string,
+  priorities: FarmerPriorities,
+): Promise<RecommendationResponse> {
+  const response =
+    await api.post<RecommendationResponse>(
+      `/api/offline/fields/${fieldId}/recommendations`,
+      priorities,
+    );
+
+  return response.data;
+}
