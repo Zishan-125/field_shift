@@ -99,7 +99,7 @@ export default function FarmerSoilView({ soil, language = "bn" }: Props) {
 
         <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {rows.map((row) => (
-            <div key={row.label} className="rounded-2xl bg-slate-50 p-4">
+            <div key={row.label} className="flex h-full flex-col justify-between rounded-2xl bg-slate-50 p-4">
               <p className="text-xs font-bold text-slate-500">{row.label}</p>
               <p className="mt-2 text-xl font-black text-slate-900">
                 {row.value}
@@ -135,7 +135,7 @@ export default function FarmerSoilView({ soil, language = "bn" }: Props) {
           </div>
         </div>
 
-        <details className="mt-4 rounded-2xl border border-slate-200 bg-white">
+        <details className="fs-details mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-white">
           <summary className="cursor-pointer px-4 py-3 text-sm font-black text-slate-700">
             {language === "bn" ? "আরও মাটির তথ্য দেখুন" : "View more soil details"}
           </summary>

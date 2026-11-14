@@ -112,21 +112,23 @@ const ObservationCard = ({
   description: string;
   icon: string;
 }) => (
-  <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-    <div className="mb-3 flex items-center justify-between">
-      <h4 className="text-sm font-medium text-gray-600 dark:text-gray-300">
-        {title}
-      </h4>
-      <span className="text-xl" aria-hidden="true">
-        {icon}
-      </span>
+  <div className="flex h-full flex-col justify-between rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+    <div>
+      <div className="mb-3 flex items-center justify-between gap-2">
+        <h4 className="text-xs font-bold uppercase tracking-wide text-slate-500">
+          {title}
+        </h4>
+        <span className="text-xl" aria-hidden="true">
+          {icon}
+        </span>
+      </div>
+
+      <p className="text-2xl font-black text-slate-900">
+        {value}
+      </p>
     </div>
 
-    <p className="text-2xl font-bold text-gray-900 dark:text-white">
-      {value}
-    </p>
-
-    <p className="mt-2 text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+    <p className="mt-2 text-xs leading-relaxed text-slate-500">
       {description}
     </p>
   </div>
@@ -201,23 +203,26 @@ const EarthObservationContext: React.FC<
   ];
 
   return (
-    <section className="space-y-5 rounded-2xl border border-gray-200 bg-gray-50 p-5 dark:border-gray-700 dark:bg-gray-900">
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+    <section className="space-y-5 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-green-600">
+            {isBangla ? "NASA POWER ডেটা" : "NASA POWER Data"}
+          </p>
+          <h3 className="mt-1 text-xl font-black text-slate-950 sm:text-2xl">
             {isBangla
               ? "পৃথিবী পর্যবেক্ষণ তথ্য"
               : "Earth Observation Context"}
           </h3>
 
-          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-1 max-w-2xl text-sm leading-6 text-slate-600">
             {isBangla
               ? "নির্বাচিত কৃষিজমির পরিবেশগত অবস্থা এবং NASA POWER পর্যবেক্ষণ।"
               : "Detailed field environment. NASA and NASA POWER observations are shown as environmental context for the field."}
           </p>
         </div>
 
-        <span className="inline-flex w-fit items-center gap-2 rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800 dark:bg-green-900/40 dark:text-green-300">
+        <span className="inline-flex w-fit shrink-0 items-center gap-2 rounded-full border border-green-200 bg-green-50 px-3 py-1.5 text-[10px] font-black uppercase tracking-wide text-green-800">
           <span className="h-2 w-2 rounded-full bg-green-500" />
           {isBangla ? "NASA POWER ডেটা" : "NASA POWER Data"}
         </span>
@@ -253,30 +258,30 @@ const EarthObservationContext: React.FC<
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+          <p className="text-xs font-bold text-slate-500">
             {isBangla ? "সর্বশেষ পর্যবেক্ষণের তারিখ" : "Latest Observation"}
           </p>
 
-          <p className="mt-1 text-lg font-semibold text-gray-900 dark:text-white">
+          <p className="mt-1 text-lg font-black text-slate-900">
             {getLatestDate(latest)}
           </p>
         </div>
 
-        <div className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+        <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+          <p className="text-xs font-bold text-slate-500">
             {isBangla ? "মোট পর্যবেক্ষণ" : "Available Observations"}
           </p>
 
-          <p className="mt-1 text-lg font-semibold text-gray-900 dark:text-white">
+          <p className="mt-1 text-lg font-black text-slate-900">
             {rows.length}
           </p>
         </div>
       </div>
 
-      <div className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-        <h4 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
+      <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 sm:p-5">
+        <h4 className="mb-3 text-sm font-black text-slate-900">
           {isBangla ? "ডেটা উৎস ও প্যারামিটার" : "Data Sources and Parameters"}
         </h4>
 
@@ -284,20 +289,20 @@ const EarthObservationContext: React.FC<
           {sourceDetails.map(([source, detail]) => (
             <div
               key={source}
-              className="flex flex-col gap-1 border-b border-gray-100 pb-2 last:border-0 dark:border-gray-700"
+              className="flex flex-col gap-1 rounded-xl border border-slate-200/80 bg-white p-3"
             >
-              <span className="text-sm font-medium text-gray-800 dark:text-gray-200">
+              <span className="text-xs font-black text-slate-800">
                 {source}
               </span>
 
-              <span className="text-xs text-gray-500 dark:text-gray-400">
+              <span className="text-xs text-slate-500">
                 {detail}
               </span>
             </div>
           ))}
         </div>
 
-        <p className="mt-4 text-xs leading-relaxed text-gray-500 dark:text-gray-400">
+        <p className="mt-4 text-xs leading-relaxed text-slate-500">
           {isBangla
             ? "NASA POWER দৈনিক পর্যবেক্ষণ প্রকাশে বিলম্ব হতে পারে। তাই সর্বশেষ উপলভ্য তারিখের তথ্য দেখানো হয়; এটি তাৎক্ষণিক আবহাওয়ার তথ্য নয়।"
             : "NASA POWER daily observations may have a publication delay. This section displays the latest available observation, not instantaneous real-time weather."}

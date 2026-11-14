@@ -448,7 +448,7 @@ export default function FarmMap({
   );
 
   return (
-    <div className="overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm sm:p-6">
+    <div className="overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white p-5 shadow-sm sm:p-6">
       <div className="mb-4 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">
@@ -640,7 +640,7 @@ export default function FarmMap({
         </MapContainer>
       </div>
 
-      <div className="mt-3 flex flex-col items-center justify-between gap-2 text-[11px] text-slate-500 sm:flex-row">
+      <div className="mt-3 flex flex-col items-start justify-between gap-2 text-[11px] text-slate-500 sm:flex-row sm:items-center">
         <span>
           {isBangla ? "সক্রিয় স্থানাঙ্ক:" : "Active Coordinates:"}
           {" "}

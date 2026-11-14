@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import {
   Bell,
   ChevronDown,
@@ -13,22 +14,27 @@ import {
 
 import fieldImage from "../../assets/field.jpg";
 
-import OfflineStatus from "../OfflineStatus";
-
 interface FarmerHeaderProps {
   backendAvailable?: boolean;
   farmerName?: string;
   fieldName?: string;
+  selectedFieldName?: string;
+  topBar?: ReactNode;
   [key: string]: unknown;
 }
 
 export default function FarmerHeader({
-  backendAvailable = true,
   farmerName = "Farmer",
   fieldName = "Your field",
+  selectedFieldName,
+  topBar,
 }: FarmerHeaderProps) {
   const firstName =
     farmerName.trim().split(/\s+/)[0] || "Farmer";
+  const activeFieldName =
+    (typeof selectedFieldName === "string" &&
+      selectedFieldName.trim()) ||
+    fieldName;
 
   return (
     <>
@@ -109,6 +115,39 @@ export default function FarmerHeader({
       </header>
 
       {/* =====================================================
+          MOBILE HEADER
+      ====================================================== */}
+      <div className="fs-mobile-header">
+        <div className="fs-mobile-brand">
+          <div className="fs-brand-mark">
+            <Leaf size={21} />
+          </div>
+
+          <div>
+            <strong>
+              Field Shift
+            </strong>
+
+            <span>
+              {activeFieldName}
+            </span>
+          </div>
+        </div>
+
+        <div className="fs-mobile-actions">
+          <button
+            type="button"
+            className="fs-icon-button"
+            aria-label="Menu"
+          >
+            <Menu size={20} />
+          </button>
+        </div>
+      </div>
+
+      {topBar}
+
+      {/* =====================================================
           HERO / FIELD OVERVIEW
       ====================================================== */}
       <section className="fs-hero-wrap">
@@ -128,7 +167,7 @@ export default function FarmerHeader({
               <span className="fs-hero-location">
                 <MapPin size={14} />
 
-                {fieldName}
+                {activeFieldName}
               </span>
 
               <span className="fs-live-pill">
@@ -296,46 +335,6 @@ export default function FarmerHeader({
           </div>
         </div>
       </section>
-
-      {/* Existing connection status */}
-      <div className="fs-status-holder">
-        <OfflineStatus
-          backendAvailable={
-            backendAvailable
-          }
-        />
-      </div>
-
-      {/* =====================================================
-          MOBILE HEADER
-      ====================================================== */}
-      <div className="fs-mobile-header">
-        <div className="fs-mobile-brand">
-          <div className="fs-brand-mark">
-            <Leaf size={21} />
-          </div>
-
-          <div>
-            <strong>
-              Field Shift
-            </strong>
-
-            <span>
-              {fieldName}
-            </span>
-          </div>
-        </div>
-
-        <div className="fs-mobile-actions">
-          <button
-            type="button"
-            className="fs-icon-button"
-            aria-label="Menu"
-          >
-            <Menu size={20} />
-          </button>
-        </div>
-      </div>
     </>
   );
 }

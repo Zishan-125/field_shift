@@ -1455,68 +1455,7 @@ const isBangla = language === "bn";
     <main className="fs-page">
 
       {/* ================================================
-          TOP BAR
-      ================================================ */}
-
-      <div className="fs-container pt-4">
-
-        <div className="flex flex-wrap items-center justify-between gap-3">
-
-          <div className="flex flex-wrap items-center gap-2">
-
-            <span className="inline-flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-3 py-2 text-[10px] font-black uppercase tracking-wide text-green-800">
-              <span className="h-2 w-2 rounded-full bg-green-500" />
-
-              Feni Regional Dataset
-            </span>
-
-            <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-[10px] font-bold text-slate-600">
-
-              {isOnline ? (
-                <>
-                  <span className="h-2 w-2 rounded-full bg-green-500" />
-                  {isBangla ? "অনলাইন" : "Online"}
-                </>
-              ) : (
-                <>
-                  <span className="h-2 w-2 rounded-full bg-amber-500" />
-                  {isBangla ? "অফলাইন" : "Offline"}
-                </>
-              )}
-
-            </span>
-
-            {preparedDataAvailable && (
-              <span className="rounded-full border border-blue-100 bg-blue-50 px-3 py-2 text-[10px] font-bold text-blue-800">
-                {isBangla
-                  ? "স্থানীয় তথ্য সংরক্ষিত"
-                  : "Offline data available"}
-              </span>
-            )}
-
-          </div>
-
-          <LanguageSwitcher
-            language={language}
-            onChange={setLanguage}
-          />
-
-        </div>
-
-        {syncNotice && (
-          <p
-            className="mt-3 rounded-xl border border-slate-200 bg-white px-4 py-2 text-xs text-slate-600"
-            role="status"
-            aria-live="polite"
-          >
-            {syncNotice}
-          </p>
-        )}
-
-      </div>
-
-      {/* ================================================
-          HEADER
+          HEADER + TOP BAR
       ================================================ */}
 
       <FarmerHeader
@@ -1527,6 +1466,55 @@ const isBangla = language === "bn";
             : "Selected Field Plot")
         }
         isBangla={isBangla}
+        topBar={
+          <div className="fs-container pt-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-3 py-2 text-[10px] font-black uppercase tracking-wide text-green-800">
+                  <span className="h-2 w-2 rounded-full bg-green-500" />
+                  Feni Regional Dataset
+                </span>
+
+                <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-[10px] font-bold text-slate-600">
+                  {isOnline ? (
+                    <>
+                      <span className="h-2 w-2 rounded-full bg-green-500" />
+                      {isBangla ? "অনলাইন" : "Online"}
+                    </>
+                  ) : (
+                    <>
+                      <span className="h-2 w-2 rounded-full bg-amber-500" />
+                      {isBangla ? "অফলাইন" : "Offline"}
+                    </>
+                  )}
+                </span>
+
+                {preparedDataAvailable && (
+                  <span className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-3 py-2 text-[10px] font-bold text-blue-800">
+                    {isBangla
+                      ? "স্থানীয় তথ্য সংরক্ষিত"
+                      : "Offline data available"}
+                  </span>
+                )}
+              </div>
+
+              <LanguageSwitcher
+                language={language}
+                onChange={setLanguage}
+              />
+            </div>
+
+            {syncNotice && (
+              <p
+                className="mt-3 rounded-xl border border-slate-200 bg-white px-4 py-2 text-xs text-slate-600"
+                role="status"
+                aria-live="polite"
+              >
+                {syncNotice}
+              </p>
+            )}
+          </div>
+        }
       />
 
       <section className="fs-container py-6 sm:py-8 lg:py-10">
@@ -1541,7 +1529,7 @@ const isBangla = language === "bn";
 
             <div className="bg-green-50 p-5 sm:p-6">
 
-              <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
                 <div>
                   <p className="text-[10px] font-black uppercase tracking-[0.18em] text-green-700">
@@ -1563,7 +1551,7 @@ const isBangla = language === "bn";
                   </p>
                 </div>
 
-                <span className="rounded-xl border border-green-200 bg-white px-4 py-3 text-xs font-black text-green-800">
+                <span className="w-fit shrink-0 rounded-xl border border-green-200 bg-white px-4 py-3 text-xs font-black text-green-800">
                   {isBangla
                     ? "ফেনী, বাংলাদেশ"
                     : "Feni, Bangladesh"}
@@ -1704,7 +1692,7 @@ const isBangla = language === "bn";
 
         {hasExploredLocation && (
 
-          <section className="fs-section mt-6">
+          <section className="fs-section">
 
             <div className="overflow-hidden rounded-[2rem] border border-blue-200 bg-white shadow-sm">
 
@@ -1884,7 +1872,7 @@ const isBangla = language === "bn";
             5. FARM CHATBOT
         ============================================== */}
 
-        <section className="fs-section scroll-mt-6 mt-6">
+        <section className="fs-section scroll-mt-6">
           <FarmChatBot
             isBangla={isBangla}
             selectedFieldName={
@@ -1930,7 +1918,7 @@ const isBangla = language === "bn";
             6. PREPARED FENI ENVIRONMENT
         ============================================== */}
 
-        <section className="fs-section mt-6">
+        <section className="fs-section">
 
           <SectionTitle
             eyebrow={
@@ -2236,7 +2224,7 @@ const isBangla = language === "bn";
 
               </div>
 
-              <div className="rounded-2xl bg-white px-4 py-3 shadow-sm">
+              <div className="w-fit shrink-0 min-w-[96px] rounded-2xl bg-white px-4 py-3 text-center shadow-sm">
 
                 <p className="text-2xl font-black text-green-700">
                   {recommendationResults.length}
@@ -2361,7 +2349,7 @@ const isBangla = language === "bn";
 
               <div
                 key={title}
-                className="rounded-2xl bg-white/70 p-4"
+                className="flex h-full flex-col rounded-2xl bg-white/70 p-4"
               >
 
                 <div className="text-2xl">
@@ -2460,7 +2448,7 @@ const isBangla = language === "bn";
             15. TECHNICAL DETAILS
         ============================================== */}
 
-        <details className="mb-10 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+        <details className="fs-details mb-10 overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm">
 
           <summary className="cursor-pointer px-6 py-5 text-sm font-black text-slate-800">
 

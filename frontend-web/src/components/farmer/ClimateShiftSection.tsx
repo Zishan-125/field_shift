@@ -118,7 +118,7 @@ function StatusBadge({ indicator, language }: { indicator: ClimateIndicator; lan
         ? [t.stepBadge, "bg-amber-50 text-amber-900"]
         : [t.notSignificantBadge, "bg-slate-100 text-slate-700"];
 
-  return <span className={`rounded-full px-2.5 py-1 text-[10px] font-black ${className}`}>{text}</span>;
+  return <span className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-black ${className}`}>{text}</span>;
 }
 
 function IndicatorChart({
@@ -336,27 +336,27 @@ export default function ClimateShiftSection({ language = "bn" }: ClimateShiftSec
   const risk = language === "bn" ? bn.climateRisk : en.climateRisk;
 
   return (
-    <div className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-      <div className="flex flex-col-reverse gap-3 sm:flex-row sm:items-start sm:justify-between">
-        <div className="min-w-0 flex-1">
-          <ClimateRiskPanel data={data} language={language} />
-        </div>
-
-        <label className="shrink-0 text-xs font-bold text-slate-500">
-          {t.upazila}
-          <select
-            value={data.upazila}
-            onChange={(event) => setUpazila(event.target.value)}
-            className="ml-2 rounded-lg border border-slate-200 bg-white px-2 py-1 text-sm text-slate-800"
-          >
-            {data.available_upazilas.map((name) => (
-              <option key={name} value={name}>
-                {name}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
+    <div className="min-w-0 overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+      <ClimateRiskPanel
+        data={data}
+        language={language}
+        headerRight={
+          <label className="inline-flex max-w-full shrink-0 flex-wrap items-center gap-2 text-xs font-bold text-slate-500">
+            <span>{t.upazila}</span>
+            <select
+              value={data.upazila}
+              onChange={(event) => setUpazila(event.target.value)}
+              className="max-w-full rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-sm font-semibold text-slate-800"
+            >
+              {data.available_upazilas.map((name) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </label>
+        }
+      />
 
       <button
         type="button"
@@ -368,48 +368,50 @@ export default function ClimateShiftSection({ language = "bn" }: ClimateShiftSec
       </button>
 
       {trendOpen && (
-      <div className="mt-4">
-      <p className="text-[10px] font-black uppercase tracking-[0.18em] text-blue-700">{t.eyebrow}</p>
-      <h3 className="mt-2 text-lg font-black text-slate-900">{t.title}</h3>
-      <p className="mt-2 text-sm leading-6 text-slate-500">{fill(t.subtitle, { upazila: data.upazila })}</p>
+      <div className="mt-4 min-w-0">
+      <p className="break-words text-[10px] font-black uppercase tracking-[0.18em] text-blue-700">{t.eyebrow}</p>
+      <h3 className="mt-2 break-words text-lg font-black text-slate-900">{t.title}</h3>
+      <p className="mt-2 break-words text-sm leading-6 text-slate-500">{fill(t.subtitle, { upazila: data.upazila })}</p>
       <p className="mt-2 rounded-xl bg-blue-50 px-3 py-2 text-xs leading-5 text-blue-950">
         🛰️ {data.rain_source === "gpm" ? t.gridGpm : t.gridPower}
       </p>
 
-      <div className="mt-5 grid gap-4 lg:grid-cols-2">
+      <div className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-2">
         {CHART_INDICATORS.map((id) => {
           const indicator = byId.get(id);
           if (!indicator) return null;
 
           return (
-            <div key={id} className="rounded-2xl border border-slate-200 p-4">
-              <div className="flex items-start justify-between gap-2">
-                <p className="text-sm font-black text-slate-900">{t.indicator[id]}</p>
-                <StatusBadge indicator={indicator} language={language} />
+            <div key={id} className="flex h-full min-w-0 flex-col justify-between rounded-2xl border border-slate-200 p-4">
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <p className="min-w-0 flex-1 text-sm font-black text-slate-900">{t.indicator[id]}</p>
+                  <StatusBadge indicator={indicator} language={language} />
+                </div>
+
+                <p className="mt-2 text-sm leading-6 text-slate-700">{sentence(indicator, language)}</p>
+
+                {indicator.status !== "no_significant_trend" && indicator.gauge_agrees === false && (
+                  <p className="mt-1 text-xs leading-5 text-amber-800">{t.caveatGauge}</p>
+                )}
+
+                {indicator.caveat?.startsWith("imerg_sensor_eras") && (
+                  <p className="mt-1 text-xs leading-5 text-amber-800">{t.caveatSensorEra}</p>
+                )}
               </div>
 
-              <p className="mt-2 text-sm leading-6 text-slate-700">{sentence(indicator, language)}</p>
-
-              {indicator.status !== "no_significant_trend" && indicator.gauge_agrees === false && (
-                <p className="mt-1 text-xs leading-5 text-amber-800">{t.caveatGauge}</p>
-              )}
-
-              {indicator.caveat?.startsWith("imerg_sensor_eras") && (
-                <p className="mt-1 text-xs leading-5 text-amber-800">{t.caveatSensorEra}</p>
-              )}
-
-              <div className="mt-3">
+              <div className="mt-3 min-w-0">
                 <IndicatorChart
                   indicator={indicator}
                   gauge={id === "annual_rain_mm" ? gauge : empty}
                   comparison={id === "annual_rain_mm" ? powerRain : undefined}
                   language={language}
                 />
-              </div>
 
-              {id.startsWith("tx90p") && (
-                <p className="mt-1 text-[11px] leading-5 text-slate-500">{t.hotDayHint}</p>
-              )}
+                {id.startsWith("tx90p") && (
+                  <p className="mt-1 text-[11px] leading-5 text-slate-500">{t.hotDayHint}</p>
+                )}
+              </div>
             </div>
           );
         })}
@@ -441,12 +443,12 @@ export default function ClimateShiftSection({ language = "bn" }: ClimateShiftSec
       </button>
 
       {open && (
-        <div className="mt-3 space-y-4 border-t border-slate-100 pt-4 text-xs leading-5 text-slate-600">
+        <div className="mt-3 min-w-0 space-y-4 border-t border-slate-100 pt-4 text-xs leading-5 text-slate-600">
           <p>{data.notes.source}</p>
           <p>{data.notes.grid}</p>
           <p>{data.notes.significance}</p>
 
-          <div className="overflow-x-auto">
+          <div className="w-full overflow-x-auto">
             <table className="w-full min-w-[640px] text-left">
               <thead className="text-slate-500">
                 <tr>
@@ -490,7 +492,7 @@ export default function ClimateShiftSection({ language = "bn" }: ClimateShiftSec
             </table>
           </div>
 
-          <div>
+          <div className="min-w-0 overflow-x-auto">
             <p className="font-black text-slate-700">{t.gaugeTitle}</p>
             <table className="mt-1 text-left">
               <thead className="text-slate-500">
@@ -519,7 +521,7 @@ export default function ClimateShiftSection({ language = "bn" }: ClimateShiftSec
           </div>
 
           {biasOffsets.length > 0 && (
-            <div>
+            <div className="min-w-0 overflow-x-auto">
               <p className="font-black text-slate-700">{t.biasTitle}</p>
               <p>{t.biasIntro}</p>
 

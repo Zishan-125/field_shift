@@ -48,7 +48,7 @@ function StatusItem({
         : "bg-white text-slate-700";
 
   return (
-    <div className={`rounded-2xl border p-4 ${tone}`}>
+    <div className={`flex h-full flex-col justify-between rounded-2xl border p-4 ${tone}`}>
       <div className="flex items-start gap-3">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-lg shadow-sm">
           {icon}
@@ -56,7 +56,7 @@ function StatusItem({
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-2">
             <p className="text-sm font-black text-slate-900">{label}</p>
-            <span className={`rounded-full px-2 py-1 text-[9px] font-black ${badge}`}>
+            <span className={`shrink-0 rounded-full px-2 py-1 text-[9px] font-black ${badge}`}>
               {status === "good" ? "✓" : "👀"}
             </span>
           </div>

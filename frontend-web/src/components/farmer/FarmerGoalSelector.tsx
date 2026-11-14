@@ -264,7 +264,7 @@ export default function FarmerGoalSelector({
             <div
               key={goal.key}
               className={[
-                "rounded-2xl border p-4 transition",
+                "flex h-full flex-col justify-between rounded-2xl border p-4 transition",
                 active
                   ? "border-green-500 bg-green-50 ring-2 ring-green-100"
                   : "border-slate-200 bg-white",

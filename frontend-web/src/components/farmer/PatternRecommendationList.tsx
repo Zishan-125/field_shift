@@ -74,17 +74,19 @@ function FoodWaterComparison({
     change: string,
     good: boolean | null,
   ) => (
-    <div className="rounded-2xl border border-slate-200 bg-white p-3">
-      <p className="text-[11px] font-black text-slate-500">
-        {icon} {label}
-      </p>
-      <div className="mt-1 flex items-baseline justify-between gap-2">
-        <p className="text-xs text-slate-500">
-          {t.now}: <span className="font-black text-slate-700">{now}</span>
+    <div className="flex h-full flex-col justify-between rounded-2xl border border-slate-200 bg-white p-3">
+      <div>
+        <p className="text-[11px] font-black text-slate-500">
+          {icon} {label}
         </p>
-        <p className="text-xs text-slate-500">
-          {t.withPlan}: <span className="text-base font-black text-slate-900">{plan}</span>
-        </p>
+        <div className="mt-1 flex items-baseline justify-between gap-2">
+          <p className="text-xs text-slate-500">
+            {t.now}: <span className="font-black text-slate-700">{now}</span>
+          </p>
+          <p className="text-xs text-slate-500">
+            {t.withPlan}: <span className="text-base font-black text-slate-900">{plan}</span>
+          </p>
+        </div>
       </div>
       <div className="mt-1 flex items-center justify-between gap-2">
         <p className="text-[10px] text-slate-400">{unit}</p>
@@ -613,13 +615,13 @@ function RecommendationCard({
                   {t.scoreParts}
                 </p>
 
-                <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
                   {INDICATOR_KEYS.map((key) => (
-                    <div key={key} className="rounded-xl bg-slate-50 p-3">
+                    <div key={key} className="flex h-full flex-col justify-between rounded-xl bg-slate-50 p-3">
                       <p className="text-[10px] font-bold text-slate-400">
                         {t.indicator[key]}
                       </p>
-                      <p className="text-sm font-black text-slate-800">
+                      <p className="mt-1 text-sm font-black text-slate-800">
                         {points(pattern.indicators?.[key])}{" "}
                         <span className="text-xs text-slate-500">
                           ({signedPoints(pattern.indicator_changes?.[key])})
@@ -663,7 +665,7 @@ function OtherPatterns({
   }
 
   return (
-    <details className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+    <details className="fs-details overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm">
       <summary className="cursor-pointer px-5 py-4">
         <span className="text-sm font-black text-slate-800">
           {t.otherTitle} ({others.length})
