@@ -128,3 +128,114 @@ data-pipeline/tmp/
 *.pt
 *.pth
 data-pipeline/data/processed/parts/
+
+
+
+
+# ==========================================
+# 1. Environment Variables & Secrets
+# ==========================================
+.env
+.env.*
+!.env.example
+*.secret
+credentials.json
+service-account*.json
+google-credentials.json
+*.pem
+*.key
+*.p12
+
+# ==========================================
+# 2. Python Virtual Environment & Cache
+# ==========================================
+.venv/
+venv/
+env/
+ENV/
+backend/venv/
+backend/.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# ==========================================
+# 3. Node.js, React, Vite & Frontend Build
+# ==========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+frontend-web/dist/
+frontend-web/.vite/
+mobile-app/node_modules/
+mobile-app/.expo/
+mobile-app/dist/
+mobile-app/web-build/
+.next/
+out/
+build/
+dist/
+coverage/
+.cache/
+.temp/
+.tmp/
+
+# ==========================================
+# 4. Database & Local Data
+# ==========================================
+*.db
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+pgdata/
+
+# ==========================================
+# 5. Logs & Temporary Files
+# ==========================================
+*.log
+logs/
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+
+# ==========================================
+# 6. IDE & Editor Settings
+# ==========================================
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.iml
+
+# ==========================================
+# 7. Generated Pipeline Data & ML Artifacts
+# ==========================================
+data-pipeline/output/
+data-pipeline/outputs/
+data-pipeline/cache/
+data-pipeline/tmp/
+data-pipeline/data/processed/parts/
+*.pkl
+*.pickle
+*.joblib
+*.h5
+*.keras
+*.onnx
+*.pt
+*.pth
